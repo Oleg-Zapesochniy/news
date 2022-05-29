@@ -1,20 +1,40 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {useState} from 'react';
+import { StyleSheet,  View, Text} from 'react-native';
+import {gStyle} from './styles/style';
+import * as Font from 'expo-font';
+import AppLoading from 'expo-app-loading';
+// import Main from './components/Main';
+// import Compontents from './components/Contacts';
+import MainStack from './navigate';
 
-export default function App() {
+
+const fonts = () => Font.loadAsync({
+  GrapeNuts: require('./assets/fonts/GrapeNuts.ttf')
+});
+
+export default  function App() {
+  const [font, setFont] = useState(false);
+  if(font) {
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View style={gStyle.main}>
+      <Text style={gStyle.title}>Open to   on your app!</Text>
+      {/* <Main /> */}
+      <MainStack />
     </View>
   );
+} else {
+    return (
+      <AppLoading
+        startAsync={fonts}
+        onFinish={()=> setFont(true)}
+        onError={console.warn}  
+       />
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  
 });
+``
